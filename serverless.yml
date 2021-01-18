@@ -23,22 +23,22 @@ functions:
   getTestTypes:
     handler: src/handler.handler
     events:
-    - http:
-        path: test-types
-        method: get
-    - http:
-        path: test-types/{id}
-        method: get
-        request:
-          parameters:
-            paths:
-              id: true
-            query:
-              fields: true
-              vehicleType: true
-              vehicleSize: true
-              vehicleConfiguration: true
-              vehicleAxles: false
+      - http:
+          path: test-types
+          method: get
+      - http:
+          path: test-types/{id}
+          method: get
+          request:
+            parameters:
+              paths:
+                id: true
+              query:
+                fields: true
+                vehicleType: true
+                vehicleSize: true
+                vehicleConfiguration: true
+                vehicleAxles: false
 
 resources:
   Resources:
@@ -47,15 +47,15 @@ resources:
       Properties:
         TableName: cvs-local-test-types
         AttributeDefinitions:
-        - AttributeName: id
-          AttributeType: S
-        - AttributeName: name
-          AttributeType: S
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: name
+            AttributeType: S
         KeySchema:
-        - AttributeName: id
-          KeyType: HASH
-        - AttributeName: name
-          KeyType: RANGE
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: name
+            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
@@ -66,13 +66,13 @@ custom:
     start:
       port: 8002
       inMemory: true
-      migrate: false
-      seed: false
-      noStart: true
+      migrate: true
+      seed: true
+      noStart: false
     seed:
       test-types:
         sources:
-        - table: cvs-local-test-types
-          sources: [./tests/resources/test-types.json]
+          - table: cvs-local-test-types
+            sources: [./tests/resources/test-types.json]
     stages:
       - dev
